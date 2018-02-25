@@ -34,27 +34,36 @@ namespace Google.Calendar
         {
             string retVal = string.Empty;
 
-            // TODO: Convert string parmeters to enums
-            calendarEvents = GetEvents(int.Parse(maxEventResults), Enums.Day.Today, Enums.DateTimePeriod.Day);
-
-            Console.WriteLine("Upcoming events:");
-            if (calendarEvents.Items != null && calendarEvents.Items.Count > 0)
+            try
             {
-                foreach (var eventItem in calendarEvents.Items)
+
+                Enums.Day day = (Enums.Day)Enum.Parse(typeof(Enums.Day), startDay);
+                Enums.DateTimePeriod timePeriod = (Enums.DateTimePeriod)Enum.Parse(typeof(Enums.DateTimePeriod), period);
+
+                calendarEvents = GetEvents(int.Parse(maxEventResults), day, timePeriod);
+
+                Console.WriteLine("Upcoming events:");
+                if (calendarEvents.Items != null && calendarEvents.Items.Count > 0)
                 {
-                    string when = eventItem.Start.DateTime.ToString();
-                    if (String.IsNullOrEmpty(when))
+                    foreach (var eventItem in calendarEvents.Items)
                     {
-                        when = eventItem.Start.Date;
+                        string when = eventItem.Start.DateTime.ToString();
+                        if (String.IsNullOrEmpty(when))
+                        {
+                            when = eventItem.Start.Date;
+                        }
+                        Console.WriteLine("{0} ({1})", eventItem.Summary, when);
                     }
-                    Console.WriteLine("{0} ({1})", eventItem.Summary, when);
+                }
+                else
+                {
+                    Console.WriteLine("No upcoming events found.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No upcoming events found.");
+                retVal = "Error in google calendar get event function. " + ex.Message;
             }
-
             return retVal;
         }
     }
