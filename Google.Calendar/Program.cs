@@ -25,7 +25,7 @@ namespace Google.Calendar
             UserCredential credential;
 
             using (var stream =
-                new FileStream("Protected\\client_secret.json", FileMode.Open, FileAccess.Read))
+                new FileStream(Path.Combine("Protected", "client_secret.json"), FileMode.Open, FileAccess.Read))
             {
                 string credPath = System.Environment.GetFolderPath(
                     System.Environment.SpecialFolder.Personal);
