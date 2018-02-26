@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Google.Calendar
 {
+    /// Make sure to create a folder called Protected and put your client_secret.json in there.
+ 
     public static partial class I
     {
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
@@ -24,8 +26,9 @@ namespace Google.Calendar
 
         static void Authenticate()
         {
-            using (var stream =
-                new FileStream(Path.Combine("Protected", "client_secret.json"), FileMode.Open, FileAccess.Read))
+            // Loads Protected\client_secret.json file
+            //  this file is not on Git, either get your own or get it from your admin dev.
+            using (var stream = new MemoryStream(Properties.Resources.client_secret))
             {
                 string credPath = System.Environment.GetFolderPath(
                     System.Environment.SpecialFolder.UserProfile);
