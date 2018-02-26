@@ -40,7 +40,7 @@ namespace Google
 
             string retVal = string.Empty;
 
-            // [SirOrMadam], you have {0} event(s) scheduled for {1}.
+            // [Get_SirOrMadam], you have {0} event(s) scheduled for {1}.
             // {4} event, {5} will be held at {2}, (in {3}).
 
             // {0}: eventCount
@@ -102,12 +102,16 @@ namespace Google
                                                                 eventDescription,
                                                                 eventSummary};
 
-                        retVal = string.Format("[SirOrMadam], you have {0} " + 
-                                                (int.Parse(paramsData[0]) == 1 ? "event" : "events") + 
+                        if (Properties.Settings.Default.GoogleCalendarDefaultSpeech == string.Empty)
+                        {
+                            Properties.Settings.Default.GoogleCalendarDefaultSpeech = "[Get_SirOrMadam], you have {0} " +
+                                                (int.Parse(paramsData[0]) == 1 ? "event" : "events") +
                                                 " scheduled for {1}. " +
-                                                "{4} event, {5} will be held at {2}, "+
-                                                (paramsData[3] == string.Empty ? string.Empty : "at {3}.")
-                                                , paramsData);
+                                                "{4} event, {5} will be held at {2}, " +
+                                                (paramsData[3] == string.Empty ? string.Empty : "at {3}.");
+                            Properties.Settings.Default.Save();
+                        }
+                            retVal = string.Format(Properties.Settings.Default.GoogleCalendarDefaultSpeech, paramsData);
 
                         Console.WriteLine(retVal.Replace(".",".\n"));
                     }
