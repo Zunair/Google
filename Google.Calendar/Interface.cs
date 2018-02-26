@@ -11,11 +11,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Google.Calendar
+namespace Google
 {
     /// Make sure to create a folder called Protected and put your client_secret.json in there.
  
-    public static partial class I
+    public static partial class Calendar
     {
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "LINKS - Google Calendar";
@@ -32,7 +32,7 @@ namespace Google.Calendar
             {
                 string credPath = System.Environment.GetFolderPath(
                     System.Environment.SpecialFolder.UserProfile);
-                credPath = Path.Combine(credPath, ".credentials/links-google-calendar.json");
+                credPath = Path.Combine(credPath, ".credentials", "links-google-calendar.json");
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
@@ -40,7 +40,7 @@ namespace Google.Calendar
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
+                //Console.WriteLine("Credential file saved to: " + credPath);
             }
         }
 

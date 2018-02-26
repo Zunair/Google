@@ -11,21 +11,35 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Google.Calendar
+namespace Google
 {
 
     class Program
     {
         static void Test()
         {
-            I.OnLoad();
-            I.GetEvents("10", "Today", "Week");
+            string appName = "Google Calendar Plugin For LINKS";
+
+            Console.Title = appName;
+            Console.WriteLine(appName + " v" + typeof(Program).Assembly.GetName().Version);
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Call from LINKS:");
+            Console.WriteLine("  [Google.Calendar.I.GetEvents(\"MaxEventResultCount\",\"Today,Tomorrow,DayAfterTommorow,Sunday,Monday...\",\"Day,Week,Month,Year (not used atm, value Day is default)\")]");
+            Console.WriteLine();
+            Console.WriteLine("Sample:");
+            Console.WriteLine("  [Google.Calendar.GetEvents(\"10\",\"Today\",\"Day\")]");
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Testing Sample...");
+
+            Calendar.OnLoad();
+            Calendar.GetEvents("10", "Today", "Week");
         }
 
         static void Main(string[] args)
         {
             Test();
-            
+
+            Console.WriteLine("\nPress any key to exit.");
             Console.Read();
 
         }
