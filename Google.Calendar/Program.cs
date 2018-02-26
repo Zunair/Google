@@ -16,29 +16,10 @@ namespace Google.Calendar
 
     class Program
     {
-        // If modifying these scopes, delete your previously saved credentials
-        // at ~/.credentials/calendar-dotnet-quickstart.json
-        static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
-        static string ApplicationName = "LINKS - Google Calendar";
-
-
         static void Test()
         {
-            Console.WriteLine();
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Today));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Tomorrow));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.DayAfterTomorrow));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Sunday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Monday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Tuesday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Wednesday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Thursday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Friday));
-            Console.WriteLine(DayCalc.GetDateTime(Enums.Day.Saturday));
-            Console.WriteLine();
-
             I.OnLoad();
-            I.GetEvents("10", "Today");
+            I.GetEvents("10", "Today", "Week");
         }
 
         static void Main(string[] args)
