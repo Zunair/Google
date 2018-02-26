@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Google
 {
-    public class Settings
+    public static class IOutput
     {
-        public DateTime LastChecked;
-
 
     }
-
 }
