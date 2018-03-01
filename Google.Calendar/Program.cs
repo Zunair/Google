@@ -39,7 +39,7 @@ namespace Google
         {
             Test();
 
-            Console.WriteLine("\nPress any key to exit.");
+            Console.WriteLine("\nPress enter to exit.");
             Console.Read();
 
         }
