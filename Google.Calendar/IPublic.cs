@@ -24,7 +24,14 @@ namespace Google
             service = CreateService();
             isLoaded = true;
         }
-        
+
+        public static string GetEventDescription(string eventNumber)
+        {
+            Google.Apis.Calendar.v3.Data.Event eventItem = calendarEvents.Items[int.Parse(eventNumber)-1];
+
+            return eventItem.Description;
+        }
+
         /// <summary>
         /// This function can be called from LINKS as [Google.Calendar.I.GetEvents("10","Today","day")]
         /// </summary>
@@ -78,7 +85,7 @@ namespace Google
 
                         //eventCount                                            // {0}
                         //startDay                                              // {1}
-                        string eventTime = eventItem.Start.DateTime.ToString(); // {2}
+                        string eventTime = DateTime.Parse(eventItem.Start.DateTime.ToString()).ToShortTimeString(); // {2}
                         string eventLocation = eventItem.Location;              // {3}
                         //eventNumber                                           // {4}
                         string eventDescription = eventItem.Description;        // {5}
@@ -102,19 +109,23 @@ namespace Google
                                                                 eventDescription,
                                                                 eventSummary};
 
-                        if (Properties.Settings.Default.GoogleCalendarDefaultSpeech == string.Empty)
-                        {
+                        //if (Properties.Settings.Default.GoogleCalendarDefaultSpeech == string.Empty)
+                        //{
                             Properties.Settings.Default.GoogleCalendarDefaultSpeech = "[Get_SirOrMadam], you have {0} " +
-                                                (int.Parse(paramsData[0]) == 1 ? "event" : "events") +
-                                                " scheduled for {1}. " +
-                                                "{4} event, {5} will be held at {2}, " +
-                                                (paramsData[3] == string.Empty ? string.Empty : "at {3}.");
-                            Properties.Settings.Default.Save();
-                        }
-                            retVal = string.Format(Properties.Settings.Default.GoogleCalendarDefaultSpeech, paramsData);
+                                                (int.Parse(paramsData[0]) == 1 ? "event" : "events") + " scheduled for {1}. ";
+                        Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent =
+                                            "{4} event, {6} will be held at {2}. " +
+                                            (string.IsNullOrEmpty(paramsData[3]) ? string.Empty : "at {3}.");
+                                                //"Summary: {6}." +
+                                                //" Description: {5}.";
+                            //Properties.Settings.Default.Save();
+                        //}
 
-                        Console.WriteLine(retVal.Replace(".",".\n"));
+                        retVal += string.IsNullOrEmpty(retVal) ? Properties.Settings.Default.GoogleCalendarDefaultSpeech + Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent : Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent;
+                        retVal = string.Format(retVal, paramsData);
+
                     }
+                    Console.WriteLine(retVal.Replace(".",".\n"));
                 }
                 else
                 {
