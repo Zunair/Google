@@ -34,5 +34,17 @@ namespace Google.Properties {
                 this["GoogleCalendarDefaultSpeech"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeechEvent {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeechEvent"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeechEvent"] = value;
+            }
+        }
     }
 }
