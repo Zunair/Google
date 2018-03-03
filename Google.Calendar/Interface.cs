@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static Google.DayCalc;
 
 namespace Google
 {
@@ -63,10 +64,25 @@ namespace Google
             //EventsResource.ListRequest request = service.Events.List("en.sa#holiday@group.v.calendar.google.com");
             EventsResource.ListRequest request = service.Events.List("primary");
 
+            TimeOfDay timeOfDay = TimeOfDay.EndOfDay;
+            switch (period)
+            {
+                case Enums.DateTimePeriod.Week:
+                    timeOfDay = TimeOfDay.EndOfWeek;
+                    break;
+
+                case Enums.DateTimePeriod.Month:
+                    timeOfDay = TimeOfDay.EndOfMonth;
+                    break;
+
+                case Enums.DateTimePeriod.Year:
+                    timeOfDay = TimeOfDay.EndOfYear;
+                    break;
+            }
 
             DateTime dt = DayCalc.GetDateTime(day);
             request.TimeMin = dt;
-            request.TimeMax = DayCalc.SetTime(dt, DayCalc.TimeOfDay.EndOfDay); // TODO: Calculate time period
+            request.TimeMax = DayCalc.SetTime(dt, timeOfDay); // TODO: Calculate time period
             request.ShowDeleted = false;
             request.SingleEvents = true;
             request.MaxResults = maxEventResults;
