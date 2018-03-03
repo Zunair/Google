@@ -106,13 +106,37 @@ namespace Google
         public enum TimeOfDay
         {
             EndOfDay,
-            BeginingOfDay
+            BeginingOfDay,
+            EndOfWeek,
+            EndOfMonth,
+            EndOfYear
         }
+
         public static DateTime SetTime(DateTime dateTime, TimeOfDay timeOfDay = TimeOfDay.BeginingOfDay)
         {
-            return timeOfDay == TimeOfDay.BeginingOfDay ?
-                new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0) :
-                new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 23, 59, 59);
+            DateTime retVal = new DateTime();
+            
+            switch (timeOfDay)
+            {
+                case TimeOfDay.EndOfWeek:
+                    break;
+
+                case TimeOfDay.EndOfMonth:
+                    break;
+
+                case TimeOfDay.EndOfYear:
+                    break;
+
+                case TimeOfDay.EndOfDay:
+                    retVal = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 23, 59, 59);
+                    break;
+
+                case TimeOfDay.BeginingOfDay:
+                    retVal = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
+                    break;
+            }
+
+            return retVal;
         }
     }
 

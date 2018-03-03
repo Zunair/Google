@@ -77,7 +77,11 @@ namespace Google
                 if (calendarEvents.Items != null && calendarEvents.Items.Count > 0)
                 {
                     int eventCount = calendarEvents.Items.Count;
-                    
+
+                    // TODO: If period is a day get all events
+                    // If period is a week, get daily events with day names
+                    // If period is month, get filtered events based on keywords seperated by comma with month/day names
+                    // If period year, get filtered events based on keywords seperated by comma year/month/day
 
                     for (int eventNumber = 0; eventNumber < eventCount; eventNumber++)
                     {
@@ -91,11 +95,8 @@ namespace Google
                         string eventDescription = eventItem.Description;        // {5}
                         string eventSummary = eventItem.Summary;                // {6}
                         
-                        if (period.ToUpper() == "DAY")
-                        {
-                            eventTime = Helper.FormatTime(DateTime.Parse(eventTime));
-                        }
-
+                        eventTime = Helper.FormatTime(DateTime.Parse(eventTime));
+                    
                         if (String.IsNullOrEmpty(eventTime))
                         {
                             eventTime = eventItem.Start.Date;
