@@ -55,7 +55,7 @@ namespace Google
             });
         }
         
-        static Events GetEvents(int maxEventResults, Enums.Day day, Enums.DateTimePeriod period)
+        private static Events GetEvents(int maxEventResults, Enums.Day day, Enums.DateTimePeriod period = Enums.DateTimePeriod.Day, DayOfWeek startOfWeekDay = DayOfWeek.Monday)
         {
             Events retVal = null;
             
@@ -82,7 +82,7 @@ namespace Google
 
             DateTime dt = DayCalc.GetDateTime(day);
             request.TimeMin = dt;
-            request.TimeMax = DayCalc.SetTime(dt, timeOfDay); // TODO: Calculate time period
+            request.TimeMax = DayCalc.GetTime(dt, timeOfDay, startOfWeekDay); // TODO: Calculate time period
             request.ShowDeleted = false;
             request.SingleEvents = true;
             request.MaxResults = maxEventResults;
