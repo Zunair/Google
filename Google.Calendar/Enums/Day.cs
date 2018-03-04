@@ -67,12 +67,12 @@ namespace Google
             if (day == Enums.Day.Tomorrow)
             {
                 retVal = retVal.AddDays(1);
-                retVal = SetTime(retVal);
+                retVal = GetTime(retVal);
             }
             else if (day == Enums.Day.DayAfterTomorrow)
             {
                 retVal = retVal.AddDays(2);
-                retVal = SetTime(retVal);
+                retVal = GetTime(retVal);
             }
             else if (day != Enums.Day.Today)
             {
@@ -97,7 +97,7 @@ namespace Google
             int daysToAdd = ((int)day - (int)now.DayOfWeek + 7) % 7;
 
             retVal = now.AddDays(daysToAdd);
-            retVal = SetTime(retVal);
+            retVal = GetTime(retVal);
 
             return retVal;
         }
@@ -105,26 +105,58 @@ namespace Google
 
         public enum TimeOfDay
         {
-            EndOfDay,
             BeginingOfDay,
+            EndOfDay,
+
+            BeginingOfWeek,
             EndOfWeek,
+
+            BeginingOfMonth,
             EndOfMonth,
+
+            BeginingOfYear,
             EndOfYear
         }
 
-        public static DateTime SetTime(DateTime dateTime, TimeOfDay timeOfDay = TimeOfDay.BeginingOfDay)
+        /// <summary>
+        /// Calculates time based on given parameters
+        ///  Example 1: If given dateTime is Now() and timeOfDay is EndOfDay then it will return Today's Date with 23hr 59min 59sec
+        ///  Example 2: If given dateTime is Tomorow and timeOfDay is BeginingOfDay then it will return Tomorrows's Date with 0hr 0min 0sec
+        ///  Example 3: If given dateTime is Now() and timeOfDay is EndOfWeek then it will return last day of current weeks's Date with 23hr 59min 59sec
+        /// </summary>
+        /// <param name="dateTime">Begining date time used to calcuate days, weeks, months, years</param>
+        /// <param name="period">Ending period</param>
+        /// <returns>Calculated end date for period</returns>
+        public static DateTime GetTime(DateTime dateTime, TimeOfDay period = TimeOfDay.BeginingOfDay, DayOfWeek firstday = DayOfWeek.Monday)
         {
             DateTime retVal = new DateTime();
             
-            switch (timeOfDay)
+            switch (period)
             {
-                case TimeOfDay.EndOfWeek:
-                    break;
-
-                case TimeOfDay.EndOfMonth:
+                case TimeOfDay.BeginingOfYear:
+                    retVal = new DateTime(dateTime.Year, 1, 1, 0, 0, 0);
                     break;
 
                 case TimeOfDay.EndOfYear:
+                    retVal = new DateTime(dateTime.Year, 12, 31, 23, 59, 59);
+                    break;
+
+                case TimeOfDay.BeginingOfMonth:
+                    retVal = new DateTime(dateTime.Year, 1, 1, 0, 0, 0);
+                    break;
+
+                case TimeOfDay.EndOfMonth:
+                    retVal = new DateTime(dateTime.Year, 12, DateTime.DaysInMonth(dateTime.Year, dateTime.Month), 23, 59, 59);
+                    break;
+
+                case TimeOfDay.BeginingOfWeek:
+                    retVal = dateTime.AddDays((-1 * (Int32)dateTime.DayOfWeek) + (GetDayOffset(firstday)));
+                    retVal = GetTime(retVal, TimeOfDay.BeginingOfDay);
+                    break;
+
+                case TimeOfDay.EndOfWeek:
+                    retVal = dateTime.AddDays((-1 * (Int32)dateTime.DayOfWeek) + (6 + (GetDayOffset(firstday))));
+                    retVal = GetTime(retVal, TimeOfDay.EndOfDay);
                     break;
 
                 case TimeOfDay.EndOfDay:
@@ -137,6 +169,36 @@ namespace Google
             }
 
             return retVal;
+        }
+
+        /// <summary>
+        /// Gets a number to offset the day to change first day of the week
+        /// </summary>
+        /// <param name="firstDay">First day of the week</param>
+        /// <returns></returns>
+        private static int GetDayOffset(DayOfWeek firstDay)
+        {
+            int retVal = 0;
+
+            if (firstDay != DayOfWeek.Sunday && DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+                retVal = 6;
+            else
+                retVal = DateTime.Now.DayOfWeek - firstDay;
+
+            retVal = GetFirstDayOfWeek - retVal;
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Returns first day of the week based on current system settings
+        /// </summary>
+        private static Int32 GetFirstDayOfWeek
+        {
+            get
+            {
+                return ((Int32)DateTime.Now.AddDays(-1 * (Int32)DateTime.Now.DayOfWeek).DayOfWeek + 6);
+            }
         }
     }
 
