@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static Google.DayCalc;
+using static Google.PeriodCalc;
 
 namespace Google
 {
@@ -55,7 +55,15 @@ namespace Google
             });
         }
         
-        private static Events GetEvents(int maxEventResults, Enums.Day day, Enums.DateTimePeriod period = Enums.DateTimePeriod.Day, DayOfWeek startOfWeekDay = DayOfWeek.Monday)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxEventResults"></param>
+        /// <param name="period"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="startOfWeekDay"></param>
+        /// <returns></returns>
+        private static Events GetEvents(int maxEventResults, Enums.Period period, Enums.TimeSpan timeSpan = Enums.TimeSpan.Day, DayOfWeek startOfWeekDay = DayOfWeek.Monday)
         {
             Events retVal = null;
             
@@ -64,25 +72,25 @@ namespace Google
             //EventsResource.ListRequest request = service.Events.List("en.sa#holiday@group.v.calendar.google.com");
             EventsResource.ListRequest request = service.Events.List("primary");
 
-            TimeOfDay timeOfDay = TimeOfDay.EndOfDay;
-            switch (period)
+            TimeOfPeriod timeOfDay = TimeOfPeriod.EndOfDay;
+            switch (timeSpan)
             {
-                case Enums.DateTimePeriod.Week:
-                    timeOfDay = TimeOfDay.EndOfWeek;
+                case Enums.TimeSpan.Week:
+                    timeOfDay = TimeOfPeriod.EndOfWeek;
                     break;
 
-                case Enums.DateTimePeriod.Month:
-                    timeOfDay = TimeOfDay.EndOfMonth;
+                case Enums.TimeSpan.Month:
+                    timeOfDay = TimeOfPeriod.EndOfMonth;
                     break;
 
-                case Enums.DateTimePeriod.Year:
-                    timeOfDay = TimeOfDay.EndOfYear;
+                case Enums.TimeSpan.Year:
+                    timeOfDay = TimeOfPeriod.EndOfYear;
                     break;
             }
 
-            DateTime dt = DayCalc.GetDateTime(day);
+            DateTime dt = PeriodCalc.GetDateTime(period);
             request.TimeMin = dt;
-            request.TimeMax = DayCalc.GetTime(dt, timeOfDay, startOfWeekDay); // TODO: Calculate time period
+            request.TimeMax = PeriodCalc.GetTime(dt, timeOfDay, startOfWeekDay); // TODO: Calculate time period
             request.ShowDeleted = false;
             request.SingleEvents = true;
             request.MaxResults = maxEventResults;

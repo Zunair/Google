@@ -6,80 +6,33 @@ using System.Threading.Tasks;
 
 namespace Google
 {
-    public static partial class Enums
+    internal static class PeriodCalc
     {
         /// <summary>
-        /// Extends DayOfWeek enum
+        /// Gets datetime based on specified day enum
         /// </summary>
-        public enum Day
-        {
-            //
-            // Summary:
-            //     Indicates Day After Tomorrow.
-            DayAfterTomorrow = -3,
-            //
-            // Summary:
-            //     Indicates Tomorrow.
-            Tomorrow = -2,
-            //
-            // Summary:
-            //     Indicates Today.
-            Today = -1,
-            //
-            // Summary:
-            //     Indicates Sunday.
-            Sunday = 0,
-            //
-            // Summary:
-            //     Indicates Monday.
-            Monday = 1,
-            //
-            // Summary:
-            //     Indicates Tuesday.
-            Tuesday = 2,
-            //
-            // Summary:
-            //     Indicates Wednesday.
-            Wednesday = 3,
-            //
-            // Summary:
-            //     Indicates Thursday.
-            Thursday = 4,
-            //
-            // Summary:
-            //     Indicates Friday.
-            Friday = 5,
-            //
-            // Summary:
-            //     Indicates Saturday.
-            Saturday = 6
-        }
-    }
-
-    
-
-    internal static class DayCalc
-    {
-        public static DateTime GetDateTime(Enums.Day day = Enums.Day.Today)
+        /// <param name="day">Extended Day Enum</param>
+        /// <returns></returns>
+        public static DateTime GetDateTime(Enums.Period day = Enums.Period.Today)
         {
             DateTime retVal = DateTime.Now;
 
-            if (day == Enums.Day.Tomorrow)
+            if (day == Enums.Period.Tomorrow)
             {
                 retVal = retVal.AddDays(1);
                 retVal = GetTime(retVal);
             }
-            else if (day == Enums.Day.DayAfterTomorrow)
+            else if (day == Enums.Period.DayAfterTomorrow)
             {
                 retVal = retVal.AddDays(2);
                 retVal = GetTime(retVal);
             }
-            else if (day != Enums.Day.Today)
+            else if (day != Enums.Period.Today)
             {
                 // -1, -2, -3 are handeled already so we can use enum Day as enum DayOfTheWeek now
                 retVal = GetNextWeekday((DayOfWeek)Enum.Parse(typeof(DayOfWeek), day.ToString()));
             }
-            
+
             return retVal;
         }
 
@@ -92,7 +45,7 @@ namespace Google
         {
             DateTime retVal;
             DateTime now = fromToday ? DateTime.Now : DateTime.Now.AddDays(1);
-            
+
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysToAdd = ((int)day - (int)now.DayOfWeek + 7) % 7;
 
@@ -102,8 +55,10 @@ namespace Google
             return retVal;
         }
 
-
-        public enum TimeOfDay
+        /// <summary>
+        /// Options to specify time of the period
+        /// </summary>
+        public enum TimeOfPeriod
         {
             BeginingOfDay,
             EndOfDay,
@@ -127,43 +82,43 @@ namespace Google
         /// <param name="dateTime">Begining date time used to calcuate days, weeks, months, years</param>
         /// <param name="period">Ending period</param>
         /// <returns>Calculated end date for period</returns>
-        public static DateTime GetTime(DateTime dateTime, TimeOfDay period = TimeOfDay.BeginingOfDay, DayOfWeek firstday = DayOfWeek.Monday)
+        public static DateTime GetTime(DateTime dateTime, TimeOfPeriod period = TimeOfPeriod.BeginingOfDay, DayOfWeek firstday = DayOfWeek.Monday)
         {
             DateTime retVal = new DateTime();
-            
+
             switch (period)
             {
-                case TimeOfDay.BeginingOfYear:
+                case TimeOfPeriod.BeginingOfYear:
                     retVal = new DateTime(dateTime.Year, 1, 1, 0, 0, 0);
                     break;
 
-                case TimeOfDay.EndOfYear:
+                case TimeOfPeriod.EndOfYear:
                     retVal = new DateTime(dateTime.Year, 12, 31, 23, 59, 59);
                     break;
 
-                case TimeOfDay.BeginingOfMonth:
+                case TimeOfPeriod.BeginingOfMonth:
                     retVal = new DateTime(dateTime.Year, 1, 1, 0, 0, 0);
                     break;
 
-                case TimeOfDay.EndOfMonth:
+                case TimeOfPeriod.EndOfMonth:
                     retVal = new DateTime(dateTime.Year, 12, DateTime.DaysInMonth(dateTime.Year, dateTime.Month), 23, 59, 59);
                     break;
 
-                case TimeOfDay.BeginingOfWeek:
+                case TimeOfPeriod.BeginingOfWeek:
                     retVal = dateTime.AddDays((-1 * (Int32)dateTime.DayOfWeek) + (GetDayOffset(firstday)));
-                    retVal = GetTime(retVal, TimeOfDay.BeginingOfDay);
+                    retVal = GetTime(retVal, TimeOfPeriod.BeginingOfDay);
                     break;
 
-                case TimeOfDay.EndOfWeek:
+                case TimeOfPeriod.EndOfWeek:
                     retVal = dateTime.AddDays((-1 * (Int32)dateTime.DayOfWeek) + (6 + (GetDayOffset(firstday))));
-                    retVal = GetTime(retVal, TimeOfDay.EndOfDay);
+                    retVal = GetTime(retVal, TimeOfPeriod.EndOfDay);
                     break;
 
-                case TimeOfDay.EndOfDay:
+                case TimeOfPeriod.EndOfDay:
                     retVal = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 23, 59, 59);
                     break;
 
-                case TimeOfDay.BeginingOfDay:
+                case TimeOfPeriod.BeginingOfDay:
                     retVal = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
                     break;
             }
@@ -201,5 +156,4 @@ namespace Google
             }
         }
     }
-
 }

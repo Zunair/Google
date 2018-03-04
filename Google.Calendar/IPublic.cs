@@ -67,8 +67,8 @@ namespace Google
             try
             {
 
-                Enums.Day day = (Enums.Day)Enum.Parse(typeof(Enums.Day), startDay);
-                Enums.DateTimePeriod timePeriod = (Enums.DateTimePeriod)Enum.Parse(typeof(Enums.DateTimePeriod), period);
+                Enums.Period day = (Enums.Period)Enum.Parse(typeof(Enums.Period), startDay);
+                Enums.TimeSpan timePeriod = (Enums.TimeSpan)Enum.Parse(typeof(Enums.TimeSpan), period);
 
                 calendarEvents = GetEvents(int.Parse(maxEventResults), day, timePeriod);
 
