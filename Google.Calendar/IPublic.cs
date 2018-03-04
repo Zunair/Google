@@ -25,6 +25,11 @@ namespace Google
             isLoaded = true;
         }
 
+        /// <summary>
+        /// Gets specific event's description
+        /// </summary>
+        /// <param name="eventNumber">Event number that shows up when GetEvents is called</param>
+        /// <returns>Event's description</returns>
         public static string GetEventDescription(string eventNumber)
         {
             Google.Apis.Calendar.v3.Data.Event eventItem = calendarEvents.Items[int.Parse(eventNumber)-1];
@@ -38,7 +43,8 @@ namespace Google
         /// <param name="maxEventResults">Count of events to get</param>
         /// <param name="timePeriod">Begining of first event. Full day names, Tomorrow, DayAfterTomorror, NextWeek, NextMonth, NextYear</param>
         /// <param name="timeSpan">Day, Week, Month, Year</param>
-        /// <returns></returns>
+        /// <param name="startOfWeek">Start of week's full day name</param>
+        /// <returns>Parsed events for speech</returns>
         public static string GetEvents(string maxEventResults, string timePeriod, string timeSpan = "Day", string startOfWeek = "Monday")
         {
             Helper.Break();
@@ -80,7 +86,7 @@ namespace Google
                 {
                     int eventCount = calendarEvents.Items.Count;
 
-                    // TODO: If period is a day get all events
+                    // TODO: If period is a day get all events of that day - allow to used multiple days seperated by commas
                     // If period is a week, get daily events with day names
                     // If period is month, get filtered events based on keywords seperated by comma with month/day names
                     // If period year, get filtered events based on keywords seperated by comma year/month/day
