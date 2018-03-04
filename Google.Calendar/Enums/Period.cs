@@ -15,6 +15,18 @@ namespace Google
         {
             //
             // Summary:
+            //     Indicates Next Year.
+            NextYear = -6,
+            //
+            // Summary:
+            //     Indicates Next Month.
+            NextMonth = -5,
+            //
+            // Summary:
+            //     Indicates Next Week.
+            NextWeek = -4,
+            //
+            // Summary:
             //     Indicates Day After Tomorrow.
             DayAfterTomorrow = -3,
             //

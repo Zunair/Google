@@ -33,13 +33,13 @@ namespace Google
         }
 
         /// <summary>
-        /// This function can be called from LINKS as [Google.Calendar.I.GetEvents("10","Today","day")]
+        /// This function can be called from LINKS as [Google.Calendar.I.GetEvents("10","Today","Day","Monday")]
         /// </summary>
         /// <param name="maxEventResults">Count of events to get</param>
-        /// <param name="startDay">Begining day of first event. Full day names.</param>
-        /// <param name="period">Day, Week, Month, Year</param>
+        /// <param name="timePeriod">Begining of first event. Full day names, Tomorrow, DayAfterTomorror, NextWeek, NextMonth, NextYear</param>
+        /// <param name="timeSpan">Day, Week, Month, Year</param>
         /// <returns></returns>
-        public static string GetEvents(string maxEventResults, string startDay, string period = "day")
+        public static string GetEvents(string maxEventResults, string timePeriod, string timeSpan = "Day", string startOfWeek = "Monday")
         {
             Helper.Break();
 
@@ -67,12 +67,14 @@ namespace Google
             try
             {
 
-                Enums.Period day = (Enums.Period)Enum.Parse(typeof(Enums.Period), startDay);
-                Enums.TimeSpan timePeriod = (Enums.TimeSpan)Enum.Parse(typeof(Enums.TimeSpan), period);
+                Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod); // (Enums.Period)Enum.Parse(typeof(Enums.Period), timePeriod, true);
+                Enums.TimeSpan _timeSpan = Helper.StringToEnum<Enums.TimeSpan>(timePeriod); // (Enums.TimeSpan)Enum.Parse(typeof(Enums.TimeSpan), timeSpan, true);
+                DayOfWeek _startOfWeek = Helper.StringToEnum<DayOfWeek>(timePeriod); // (DayOfWeek)Enum.Parse(typeof(DayOfWeek), startOfWeek, true); 
+                
+                calendarEvents = GetEvents(int.Parse(maxEventResults), _timePeriod, _timeSpan);
 
-                calendarEvents = GetEvents(int.Parse(maxEventResults), day, timePeriod);
-
-                startDay = startDay.Replace("DayAfterTomorrow", "Day After Tomorrow");
+                timePeriod = timePeriod.Replace("DayAfterTomorrow", "Day After Tomorrow");
+                timePeriod = timePeriod.Replace("Next", "Next ");
 
                 if (calendarEvents.Items != null && calendarEvents.Items.Count > 0)
                 {
@@ -103,7 +105,7 @@ namespace Google
                         }
                         
                         string[] paramsData = new string[] { eventCount.ToString(),
-                                                                startDay,
+                                                                timePeriod,
                                                                 eventTime,
                                                                 eventLocation,
                                                                 Helper.AddOrdinal(eventNumber + 1),
@@ -130,7 +132,7 @@ namespace Google
                 }
                 else
                 {
-                    retVal = string.Format("No upcoming events found for {0}.", startDay);
+                    retVal = string.Format("No upcoming events found for {0}.", timePeriod);
                     Console.WriteLine(retVal);
                 }
             }
