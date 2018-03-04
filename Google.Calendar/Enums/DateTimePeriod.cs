@@ -8,7 +8,7 @@ namespace Google
 {
     public static partial class Enums
     {
-        public enum DateTimePeriod
+        public enum TimeSpan
         {
             Day,
             Week,

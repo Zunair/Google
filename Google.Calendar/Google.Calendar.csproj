@@ -91,11 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\DateTimePeriod.cs" />
-    <Compile Include="Enums\Day.cs" />
+    <Compile Include="Enums\Period.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="IOutput.cs" />
     <Compile Include="IPublic.cs" />
+    <Compile Include="PeriodCalc.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
