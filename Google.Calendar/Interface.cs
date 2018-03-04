@@ -25,7 +25,10 @@ namespace Google
         static UserCredential credential;
         static Events calendarEvents;
 
-        static void Authenticate()
+        /// <summary>
+        /// Authenticate User
+        /// </summary>
+        private static void Authenticate()
         {
             // Loads Protected\client_secret.json file
             //  this file is not on Git, either get your own or get it from your admin dev.
@@ -45,7 +48,11 @@ namespace Google
             }
         }
 
-        static CalendarService CreateService()
+        /// <summary>
+        /// Create Google Calendar Service
+        /// </summary>
+        /// <returns>Google Calendar Service</returns>
+        private static CalendarService CreateService()
         {
             // Create Google Calendar API service.
             return new CalendarService(new BaseClientService.Initializer()
@@ -63,7 +70,9 @@ namespace Google
         /// <param name="timeSpan"></param>
         /// <param name="startOfWeekDay"></param>
         /// <returns></returns>
-        private static Events GetEvents(int maxEventResults, Enums.Period period, Enums.TimeSpan timeSpan = Enums.TimeSpan.Day, DayOfWeek startOfWeekDay = DayOfWeek.Monday)
+        private static Events GetEvents(int maxEventResults, Enums.Period period, 
+                                        Enums.TimeSpan timeSpan = Enums.TimeSpan.Day, 
+                                        DayOfWeek startOfWeekDay = DayOfWeek.Monday)
         {
             Events retVal = null;
             
@@ -88,9 +97,9 @@ namespace Google
                     break;
             }
 
-            DateTime dt = PeriodCalc.GetDateTime(period);
+            DateTime dt = PeriodCalc.GetDateTime(period, startOfWeekDay);
             request.TimeMin = dt;
-            request.TimeMax = PeriodCalc.GetTime(dt, timeOfDay, startOfWeekDay); // TODO: Calculate time period
+            request.TimeMax = PeriodCalc.GetTime(dt, timeOfDay, startOfWeekDay);
             request.ShowDeleted = false;
             request.SingleEvents = true;
             request.MaxResults = maxEventResults;

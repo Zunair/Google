@@ -50,5 +50,17 @@ namespace Google
         {
             if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
         }
+
+        /// <summary>
+        /// Converts string to any enum type
+        /// </summary>
+        /// <typeparam name="T">Enum type to convert to</typeparam>
+        /// <param name="enumString">String to convert</param>
+        /// <returns>Converted Enum from String</returns>
+        internal static T StringToEnum<T> (string enumString)
+        {
+            return (T)Enum.Parse(typeof(T), enumString, true);
+        }
+
     }
 }

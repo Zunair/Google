@@ -11,26 +11,41 @@ namespace Google
         /// <summary>
         /// Gets datetime based on specified day enum
         /// </summary>
-        /// <param name="day">Extended Day Enum</param>
+        /// <param name="period">Extended Day Enum</param>
         /// <returns></returns>
-        public static DateTime GetDateTime(Enums.Period day = Enums.Period.Today)
+        public static DateTime GetDateTime(Enums.Period period, DayOfWeek startOfWeekDay)
         {
             DateTime retVal = DateTime.Now;
 
-            if (day == Enums.Period.Tomorrow)
+            if (period == Enums.Period.Tomorrow)
             {
                 retVal = retVal.AddDays(1);
-                retVal = GetTime(retVal);
+                retVal = GetTime(retVal, firstday: startOfWeekDay);
             }
-            else if (day == Enums.Period.DayAfterTomorrow)
+            else if (period == Enums.Period.DayAfterTomorrow)
             {
                 retVal = retVal.AddDays(2);
-                retVal = GetTime(retVal);
+                retVal = GetTime(retVal, firstday: startOfWeekDay);
             }
-            else if (day != Enums.Period.Today)
+            else if (period == Enums.Period.NextWeek)
             {
-                // -1, -2, -3 are handeled already so we can use enum Day as enum DayOfTheWeek now
-                retVal = GetNextWeekday((DayOfWeek)Enum.Parse(typeof(DayOfWeek), day.ToString()));
+                retVal = retVal.AddDays(7);
+                retVal = GetTime(retVal, firstday: startOfWeekDay);
+            }
+            else if (period == Enums.Period.NextMonth)
+            {
+                retVal = retVal.AddMonths(1);
+                retVal = GetTime(retVal, firstday: startOfWeekDay);
+            }
+            else if (period == Enums.Period.NextYear)
+            {
+                retVal = retVal.AddYears(1);
+                retVal = GetTime(retVal, firstday: startOfWeekDay);
+            }
+            else if (period != Enums.Period.Today)
+            {
+                // -5 to -1 are handled already so we can use enum Day as enum DayOfTheWeek now
+                retVal = GetNextWeekday((DayOfWeek)Enum.Parse(typeof(DayOfWeek), period.ToString()));
             }
 
             return retVal;
