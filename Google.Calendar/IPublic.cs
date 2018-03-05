@@ -73,7 +73,7 @@ namespace Google
             try
             {
 
-                Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod); // (Enums.Period)Enum.Parse(typeof(Enums.Period), timePeriod, true);
+                Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod);
                 Enums.TimeSpan _timeSpan = Helper.StringToEnum<Enums.TimeSpan>(timePeriod); // (Enums.TimeSpan)Enum.Parse(typeof(Enums.TimeSpan), timeSpan, true);
                 DayOfWeek _startOfWeek = Helper.StringToEnum<DayOfWeek>(timePeriod); // (DayOfWeek)Enum.Parse(typeof(DayOfWeek), startOfWeek, true); 
                 
