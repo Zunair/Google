@@ -86,7 +86,7 @@ namespace Google
                 {
                     int eventCount = calendarEvents.Items.Count;
 
-                    // TODO: If period is a day get all events of that day - allow to used multiple days seperated by commas
+                    // TODO: If period is a day get all events of that day - allow to use multiple days seperated by commas
                     // If period is a week, get daily events with day names
                     // If period is month, get filtered events based on keywords seperated by comma with month/day names
                     // If period year, get filtered events based on keywords seperated by comma year/month/day
