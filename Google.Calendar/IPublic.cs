@@ -73,9 +73,9 @@ namespace Google
             try
             {
 
-                Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod); // (Enums.Period)Enum.Parse(typeof(Enums.Period), timePeriod, true);
-                Enums.TimeSpan _timeSpan = Helper.StringToEnum<Enums.TimeSpan>(timeSpan); // (Enums.TimeSpan)Enum.Parse(typeof(Enums.TimeSpan), timeSpan, true);
-                DayOfWeek _startOfWeek = Helper.StringToEnum<DayOfWeek>(startOfWeek); // (DayOfWeek)Enum.Parse(typeof(DayOfWeek), startOfWeek, true); 
+                Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod);
+                Enums.TimeSpan _timeSpan = Helper.StringToEnum<Enums.TimeSpan>(timeSpan);
+                DayOfWeek _startOfWeek = Helper.StringToEnum<DayOfWeek>(startOfWeek);
                 
                 calendarEvents = GetEvents(int.Parse(maxEventResults), _timePeriod, _timeSpan);
 
