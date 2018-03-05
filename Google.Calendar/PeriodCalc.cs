@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Google
 {
-    internal static class PeriodCalc
+    public static class PeriodCalc
     {
         /// <summary>
         /// Gets datetime based on specified day enum
         /// </summary>
         /// <param name="period">Extended Day Enum</param>
         /// <returns></returns>
-        public static DateTime GetDateTime(Enums.Period period, DayOfWeek startOfWeekDay)
+        public static DateTime GetDateTime(Enums.Period period, DayOfWeek startOfWeekDay, DateTime? beginingDateTime = null)
         {
             DateTime retVal = DateTime.Now;
+            if (beginingDateTime != null) retVal = (DateTime)beginingDateTime;
 
             if (period == Enums.Period.Tomorrow)
             {
@@ -45,7 +46,7 @@ namespace Google
             else if (period != Enums.Period.Today)
             {
                 // -5 to -1 are handled already so we can use enum Day as enum DayOfTheWeek now
-                retVal = GetNextWeekday((DayOfWeek)Enum.Parse(typeof(DayOfWeek), period.ToString()));
+                retVal = GetNextWeekday((DayOfWeek)Enum.Parse(typeof(DayOfWeek), period.ToString()), beginingDateTime: retVal);
             }
 
             return retVal;
@@ -56,10 +57,14 @@ namespace Google
         /// </summary>
         /// <param name="day">Next day to get</param>
         /// <returns>Day and time as 00:00:00</returns>
-        public static DateTime GetNextWeekday(DayOfWeek day, bool fromToday = false)
+        public static DateTime GetNextWeekday(DayOfWeek day, bool fromToday = false, DateTime? beginingDateTime = null)
         {
+
             DateTime retVal;
-            DateTime now = fromToday ? DateTime.Now : DateTime.Now.AddDays(1);
+            DateTime now = DateTime.Now;
+            if (beginingDateTime != null) now = (DateTime)beginingDateTime; // beginingDateTime is used for unit testing
+
+            now = fromToday ? now : now.AddDays(1);
 
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysToAdd = ((int)day - (int)now.DayOfWeek + 7) % 7;
@@ -97,9 +102,11 @@ namespace Google
         /// <param name="dateTime">Begining date time used to calcuate days, weeks, months, years</param>
         /// <param name="period">Ending period</param>
         /// <returns>Calculated end date for period</returns>
-        public static DateTime GetTime(DateTime dateTime, TimeOfPeriod period = TimeOfPeriod.BeginingOfDay, DayOfWeek firstday = DayOfWeek.Monday)
+        public static DateTime GetTime(DateTime dateTime, TimeOfPeriod period = TimeOfPeriod.BeginingOfDay, DayOfWeek firstday = DayOfWeek.Monday, DateTime? beginingDateTime = null)
         {
             DateTime retVal = new DateTime();
+            DateTime now = DateTime.Now;
+            if (beginingDateTime != null) now = (DateTime)beginingDateTime;
 
             switch (period)
             {
@@ -146,14 +153,17 @@ namespace Google
         /// </summary>
         /// <param name="firstDay">First day of the week</param>
         /// <returns></returns>
-        private static int GetDayOffset(DayOfWeek firstDay)
+        public static int GetDayOffset(DayOfWeek firstDay, DateTime? beginingDateTime = null)
         {
             int retVal = 0;
+            if (beginingDateTime == null) beginingDateTime = DateTime.Now;
 
-            if (firstDay != DayOfWeek.Sunday && DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+            DateTime now = (DateTime)beginingDateTime;
+
+            if (firstDay != DayOfWeek.Sunday && now.DayOfWeek == DayOfWeek.Sunday)
                 retVal = 6;
             else
-                retVal = DateTime.Now.DayOfWeek - firstDay;
+                retVal = now.DayOfWeek - firstDay;
 
             retVal = GetFirstDayOfWeek - retVal;
 
