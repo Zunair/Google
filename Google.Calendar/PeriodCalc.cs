@@ -98,6 +98,7 @@ namespace Google
         ///  Example 1: If given dateTime is Now() and timeOfDay is EndOfDay then it will return Today's Date with 23hr 59min 59sec
         ///  Example 2: If given dateTime is Tomorow and timeOfDay is BeginingOfDay then it will return Tomorrows's Date with 0hr 0min 0sec
         ///  Example 3: If given dateTime is Now() and timeOfDay is EndOfWeek then it will return last day of current weeks's Date with 23hr 59min 59sec
+        ///  Example 4: If given dateTime is Now() and timeOfDay is EndOfMonth then it will return last day of current month's Date with 23hr 59min 59sec
         /// </summary>
         /// <param name="dateTime">Begining date time used to calcuate days, weeks, months, years</param>
         /// <param name="period">Ending period</param>
