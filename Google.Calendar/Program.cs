@@ -18,7 +18,7 @@ namespace Google
     {
         static void Test()
         {
-            Console.WriteLine (PeriodCalc.GetTime(DateTime.Now, PeriodCalc.TimeOfPeriod.EndOfWeek, DayOfWeek.Monday));
+            //Console.WriteLine (PeriodCalc.GetTime(DateTime.Now, PeriodCalc.TimeOfPeriod.EndOfWeek, DayOfWeek.Monday));
 
             string appName = "Google Calendar Plugin For LINKS";
 

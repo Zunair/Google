@@ -25,25 +25,277 @@ namespace Google.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string GoogleCalendarDefaultSpeech {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GoogleCalendarDefaultSpeechReset {
             get {
-                return ((string)(this["GoogleCalendarDefaultSpeech"]));
+                return ((bool)(this["GoogleCalendarDefaultSpeechReset"]));
             }
             set {
-                this["GoogleCalendarDefaultSpeech"] = value;
+                this["GoogleCalendarDefaultSpeechReset"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string GoogleCalendarDefaultSpeechEvent {
+        public string GoogleCalendarDefaultSpeech1 {
             get {
-                return ((string)(this["GoogleCalendarDefaultSpeechEvent"]));
+                return ((string)(this["GoogleCalendarDefaultSpeech1"]));
             }
             set {
-                this["GoogleCalendarDefaultSpeechEvent"] = value;
+                this["GoogleCalendarDefaultSpeech1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech2 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech2"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech3 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech3"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech4 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech4"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech5 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech5"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech6 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech6"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech7 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech7"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech8 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech8"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech9 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech9"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech10 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech10"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech11 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech11"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech12 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech12"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech13 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech13"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech14 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech14"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech15 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech15"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech16 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech16"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech16"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech17 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech17"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech17"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech18 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech18"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech18"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech19 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech19"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech19"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech20 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech20"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech20"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech21 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech21"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech21"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GoogleCalendarDefaultSpeech22 {
+            get {
+                return ((string)(this["GoogleCalendarDefaultSpeech22"]));
+            }
+            set {
+                this["GoogleCalendarDefaultSpeech22"] = value;
             }
         }
     }

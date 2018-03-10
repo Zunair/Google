@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
 
 namespace Google
 {
@@ -23,6 +24,34 @@ namespace Google
             Authenticate();
             service = CreateService();
             isLoaded = true;
+
+            if (Properties.Settings.Default.GoogleCalendarDefaultSpeechReset)
+            {
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech1 = "[Get_SirOrMadam], you have {0} ";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech2 = "event";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech3 = "events";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech4 = " scheduled for {1}. ";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech5 = " {4} event, {6} will be held at {2}. ";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech6 = "at {3}.";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech7 = "Day After Tommorow";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech8 = "Tomorrow";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech9 = "Today";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech10 = "Sunday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech11 = "Monday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech12 = "Tuesday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech13 = "Wednesday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech14 = "Thursday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech15 = "Friday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech16 = "Saturday";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech17 = "the Week";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech18 = "Month";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech19 = "Year";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech20 = "Next {0}";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech21 = "No upcoming events found for {0}.";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeech22 = "Error in google calendar get event function. ";
+                Properties.Settings.Default.GoogleCalendarDefaultSpeechReset = false;
+                Properties.Settings.Default.Save();
+            }
         }
 
         /// <summary>
@@ -69,18 +98,30 @@ namespace Google
             //  1st event, Fake Party will be held at 1pm, at Brady's House.
             //  2nd event...
 
+            
 
             try
             {
-
                 Enums.Period _timePeriod = Helper.StringToEnum<Enums.Period>(timePeriod);
                 Enums.TimeSpan _timeSpan = Helper.StringToEnum<Enums.TimeSpan>(timeSpan);
                 DayOfWeek _startOfWeek = Helper.StringToEnum<DayOfWeek>(startOfWeek);
                 
-                calendarEvents = GetEvents(int.Parse(maxEventResults), _timePeriod, _timeSpan);
+                calendarEvents = GetEvents(int.Parse(maxEventResults), _timePeriod, _timeSpan, _startOfWeek);
 
-                timePeriod = timePeriod.Replace("DayAfterTomorrow", "Day After Tomorrow");
-                timePeriod = timePeriod.Replace("Next", "Next ");
+                timePeriod = timePeriod.Replace("DayAfterTomorrow", Properties.Settings.Default.GoogleCalendarDefaultSpeech7);
+                timePeriod = timePeriod.Replace("Tomorrow", Properties.Settings.Default.GoogleCalendarDefaultSpeech8);
+                timePeriod = timePeriod.Replace("Today", Properties.Settings.Default.GoogleCalendarDefaultSpeech9);
+                timePeriod = timePeriod.Replace("Sunday", Properties.Settings.Default.GoogleCalendarDefaultSpeech10);
+                timePeriod = timePeriod.Replace("Monday", Properties.Settings.Default.GoogleCalendarDefaultSpeech11);
+                timePeriod = timePeriod.Replace("Tuesday", Properties.Settings.Default.GoogleCalendarDefaultSpeech12);
+                timePeriod = timePeriod.Replace("Wednesday", Properties.Settings.Default.GoogleCalendarDefaultSpeech13);
+                timePeriod = timePeriod.Replace("Thursday", Properties.Settings.Default.GoogleCalendarDefaultSpeech14);
+                timePeriod = timePeriod.Replace("Friday", Properties.Settings.Default.GoogleCalendarDefaultSpeech15);
+                timePeriod = timePeriod.Replace("Saturday", Properties.Settings.Default.GoogleCalendarDefaultSpeech16);
+                timePeriod = timePeriod.Replace("Week", Properties.Settings.Default.GoogleCalendarDefaultSpeech17);
+                timePeriod = timePeriod.Replace("Month", Properties.Settings.Default.GoogleCalendarDefaultSpeech18);
+                timePeriod = timePeriod.Replace("Year", Properties.Settings.Default.GoogleCalendarDefaultSpeech19);
+                timePeriod = timePeriod.Replace("Next", string.Format(Properties.Settings.Default.GoogleCalendarDefaultSpeech20, timePeriod.Replace("Next", "")));
 
                 if (calendarEvents.Items != null && calendarEvents.Items.Count > 0)
                 {
@@ -91,10 +132,15 @@ namespace Google
                     // If period is month, get filtered events based on keywords seperated by comma with month/day names
                     // If period year, get filtered events based on keywords seperated by comma year/month/day
 
+                    string speech = Properties.Settings.Default.GoogleCalendarDefaultSpeech1 +
+                                            (eventCount == 1 ? Properties.Settings.Default.GoogleCalendarDefaultSpeech2 : Properties.Settings.Default.GoogleCalendarDefaultSpeech3) + Properties.Settings.Default.GoogleCalendarDefaultSpeech4;
+
+
                     for (int eventNumber = 0; eventNumber < eventCount; eventNumber++)
                     {
                         Google.Apis.Calendar.v3.Data.Event eventItem = calendarEvents.Items[eventNumber];
 
+                        
                         //eventCount                                            // {0}
                         //startDay                                              // {1}
                         string eventTime = DateTime.Parse(eventItem.Start.DateTime.ToString()).ToShortTimeString(); // {2}
@@ -120,17 +166,15 @@ namespace Google
 
                         //if (Properties.Settings.Default.GoogleCalendarDefaultSpeech == string.Empty)
                         //{
-                            Properties.Settings.Default.GoogleCalendarDefaultSpeech = "[Get_SirOrMadam], you have {0} " +
-                                                (int.Parse(paramsData[0]) == 1 ? "event" : "events") + " scheduled for {1}. ";
-                        Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent =
-                                            "{4} event, {6} will be held at {2}. " +
-                                            (string.IsNullOrEmpty(paramsData[3]) ? string.Empty : "at {3}.");
+                        
+                        string eSpeech  = Properties.Settings.Default.GoogleCalendarDefaultSpeech5 +
+                                            (string.IsNullOrEmpty(paramsData[3]) ? string.Empty : Properties.Settings.Default.GoogleCalendarDefaultSpeech6);
                                                 //"Summary: {6}." +
                                                 //" Description: {5}.";
                             //Properties.Settings.Default.Save();
                         //}
 
-                        retVal += string.IsNullOrEmpty(retVal) ? Properties.Settings.Default.GoogleCalendarDefaultSpeech + Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent : Properties.Settings.Default.GoogleCalendarDefaultSpeechEvent;
+                        retVal += string.IsNullOrEmpty(retVal) ? speech + eSpeech : eSpeech;
                         retVal = string.Format(retVal, paramsData);
 
                     }
@@ -138,15 +182,16 @@ namespace Google
                 }
                 else
                 {
-                    retVal = string.Format("No upcoming events found for {0}.", timePeriod);
+                    retVal = string.Format(Properties.Settings.Default.GoogleCalendarDefaultSpeech21, timePeriod);
                     Console.WriteLine(retVal);
                 }
             }
             catch (Exception ex)
             {
-                retVal = "Error in google calendar get event function. " + ex.Message;
+                retVal = Properties.Settings.Default.GoogleCalendarDefaultSpeech22 + ex.Message;
             }
             return retVal;
         }
+        
     }
 }
