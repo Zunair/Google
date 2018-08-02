@@ -28,24 +28,38 @@ namespace Google
         /// <summary>
         /// Authenticate User
         /// </summary>
-        private static void Authenticate()
+        private static string Authenticate(bool reset = false)
         {
-            // Loads Protected\client_secret.json file
-            //  this file is not on Git, either get your own or get it from your admin dev.
-            using (var stream = new MemoryStream(Properties.Resources.client_secret))
-            {
-                string credPath = System.Environment.GetFolderPath(
-                    System.Environment.SpecialFolder.UserProfile);
-                credPath = Path.Combine(credPath, ".credentials", "links-google-calendar.json");
+            string retVal = string.Empty;
 
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                //Console.WriteLine("Credential file saved to: " + credPath);
+            try
+            {
+                // Loads Protected\client_secret.json file
+                //  this file is not on Git, either get your own or get it from your admin dev.
+                using (var stream = new MemoryStream(Properties.Resources.client_secret))
+                {
+                    string credPath = System.Environment.GetFolderPath(
+                        System.Environment.SpecialFolder.UserProfile);
+                    credPath = Path.Combine(credPath, ".credentials", "links-google-calendar.json");
+
+                    if (reset)
+                        if (File.Exists(credPath)) File.Delete(credPath);
+
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        Scopes,
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore(credPath, true)).Result;
+                    //Console.WriteLine("Credential file saved to: " + credPath);
+                }
             }
+            catch (Exception ex)
+            {
+                retVal = ex.Message;   
+            }
+
+            return retVal;
         }
 
         /// <summary>

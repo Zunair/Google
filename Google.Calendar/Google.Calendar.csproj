@@ -125,7 +125,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Protected\client_secret.json" />
+    <EmbeddedResource Include="Protected\client_secret.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />

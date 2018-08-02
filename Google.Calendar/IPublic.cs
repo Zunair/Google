@@ -23,6 +23,7 @@ namespace Google
 
             Authenticate();
             service = CreateService();
+
             isLoaded = true;
 
             if (Properties.Settings.Default.GoogleCalendarDefaultSpeechReset)
@@ -54,6 +55,15 @@ namespace Google
             }
         }
 
+        public static string ReAuthenticate()
+        {
+            string retVal = string.Empty;
+
+            Authenticate(true);
+
+            return retVal;
+        }
+
         /// <summary>
         /// Gets specific event's description
         /// </summary>
@@ -67,7 +77,7 @@ namespace Google
         }
 
         /// <summary>
-        /// This function can be called from LINKS as [Google.Calendar.I.GetEvents("10","Today","Day","Monday")]
+        /// This function can be called from LINKS as [Google.Calendar.GetEvents("10","Today","Day","Monday")]
         /// </summary>
         /// <param name="maxEventResults">Count of events to get</param>
         /// <param name="timePeriod">Begining of first event. Full day names, Tomorrow, DayAfterTomorror, NextWeek, NextMonth, NextYear</param>
